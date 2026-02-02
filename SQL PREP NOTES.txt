@@ -1,0 +1,66 @@
+SQL:
+
+create database classroom;                         #create a new database
+use classroom;                                     #using created database to enter the values
+CREATE TABLE Student (
+ student_id INT PRIMARY KEY,                       #adding first column name Student_id as primary key
+    name VARCHAR(50),                              #adding Column 2 name VARCHAR(50)means characters values
+    class VARCHAR(10),
+    age INT
+);
+INSERT INTO Student VALUES                         #inserting values into table based on columns created 
+(1, 'Ravi', '10A', 15),
+(2, 'Sita', '10A', 14),
+(3, 'Arjun', '9B', 14);
+SELECT * FROM Student;                            #showing complete table 
+SELECT * FROM Student WHERE class = '10A';        #shows the table by where condition 
+UPDATE Student SET age = 16 WHERE student_id = 1; #setting the student age by where condition 
+DELETE FROM Student WHERE student_id = 3;         #Delete the row by where condition 
+ALTER TABLE Student                               #adding new column to already existing table
+ADD marks INT;                                    #adding column(INT)
+UPDATE Student SET marks = 85 WHERE student_id = 1;#updating student marks based on primary key in where condition
+UPDATE Student SET marks = 90 WHERE student_id = 2;
+select *from Student limit 2;                     # top rows in table will fetch 
+select *from Student order by marks desc limit 2; #selectiing top 2 students by marks 
+
+
+AGGREGATION:
+->Order by ->Sorting after the table 
+->Sum(marks)->Sum of marks before the table 
+->AVG(marks)-> Avg the marks
+->MAX(marks)->max marks
+->MIN(marks)->Min marks
+->COUNT(*)->Count the number of values in table 
+
+#AND
+select *from Student where student_id=2 and marks=90
+#OR
+select *from Student where student_id=3 or marks=90
+
+DELETE KEYWORD:
+*Removes selected rows
+*Uses WHERE condition
+*Can be rolled back (if transaction)
+*Table structure remains
+EX:DELETE FROM Student WHERE student_id = 3;
+
+
+TRUNCATE KEYWORD:
+*Removes ALL rows and remains the table
+*Cannot use WHERE
+*Very fast
+*Cannot be rolled back
+*Table structure remains
+EX:TRUNCATE TABLE Student;
+
+DROP KEYWORD:
+*Deletes entire table
+*Data + structure both removed
+*Cannot be rolled back
+ex: DROP TABLE Student;
+
+
+Group By:
+GROUP BY in SQL is used to group rows that have the same values in one or more columns and then apply aggregate functions on each group.
+select Course,Avg(marks) from Student group by Course
+Select Course,age,avg(marks),max(marks) from Student Group by Course,age;
