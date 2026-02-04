@@ -62,8 +62,8 @@ ex: DROP TABLE Student;
 
 Group By:
 GROUP BY in SQL is used to group rows that have the same values in one or more columns and then apply aggregate functions on each group.
-select Course,Avg(marks) from Student group by Course
-Select Course,age,avg(marks),max(marks) from Student Group by Course,age;
+EX:select Course,Avg(marks) from Student group by Course
+EX:Select Course,age,avg(marks),max(marks) from Student Group by Course,age;
 
 SQL constraints:
 1)primary Key:
@@ -124,19 +124,19 @@ FROM table1 t1
 INNER JOIN table2 t2
 ON t1.student_id = t2.student_id;
 
-2.Left Join:👉 Returns ALL records from left table + matching from right table.
+2.Left Join:👉 Returns ALL records from left table + matching from right table.(A+AnB)
 SELECT t1.student_id, t1.name, t2.subject, t2.marks
 FROM table1 t1
 LEFT JOIN table2 t2
 ON t1.student_id = t2.student_id;
 
-3.Right Join:👉 Returns ALL records from right table + matching from left table.
+3.Right Join:👉 Returns ALL records from right table + matching from left table.(B+BnA)
 SELECT t1.student_id, t1.name, t2.subject, t2.marks
 FROM table1 t1
 RIGHT JOIN table2 t2
 ON t1.student_id = t2.student_id;
 
-4.FULL JOIN:👉 Returns ALL records from both tables.
+4.FULL JOIN:👉 Returns ALL records from both tables.(A+B+(AnB))
 SELECT t1.student_id, t1.name, t2.subject, t2.marks
 FROM table1 t1
 FULL OUTER JOIN table2 t2
@@ -278,3 +278,58 @@ HAVING filters groups, not individual rows
 
 Aggregate function SUM() is allowed in HAVING
 
+
+SUB QUERY in SQL : Query Inside the Query
+*One question depends on another question 
+*Subquery is a query where results are read by another query 
+EX:select emp_name,emp_salary from employees where emp_salary>(select avg(emp_salary) from employees)
+EX:select customer_id,customer_name from customers where customer_id in (select customer_id from orders)
+EX:select customer_id,customer_name from customers where customer_id not in (select customer_id from orders)
+EX:SELECT customer_id, customer_name
+FROM customers
+WHERE customer_id IN (
+    SELECT customer_id
+    FROM orders
+    WHERE amount > (
+        SELECT AVG(amount)
+        FROM orders
+    )
+);
+
+Transaction in SQL (Simple Definition)
+
+A transaction in SQL is a group of one or more SQL statements that are executed as a single unit of work.
+👉 (Either all statements succeed or none of them are applied.)
+Real-Life Example (Bank Transfer 💰)
+
+If money is transferred:
+
+Amount is debited from one account
+
+Amount is credited to another account
+
+✔ Both must happen
+❌ If one fails, everything should be undone
+EX:start transaction;
+update bank_acc set balance=balance-500 where acc_id=1;
+commit ;
+
+INDEXING:
+Indexing in SQL is a technique used to speed up data retrieval from a table.
+An index works like a book index — it helps the database find data faster without scanning the whole table.
+
+🔹 Why Indexing is Needed?
+Without index → Full table scan (slow ❌)
+With index → Direct access to data (fast ✅)
+
+Syntax:
+CREATE INDEX index_name
+ON table_name(column_name);
+
+EX:create index idx_name on customers(customer_name);
+select customer_name from customers where customer_name='vikas';
+
+Drawbacks:
+don't use it for small data(tables)
+it occupies the space in database
+insert ,update delete become slow 
