@@ -98,3 +98,29 @@ if emp:
 else:  
     print("\nNo employees found with age greater than 21 or name 'Chennai'!")"""
 
+#orderby age in ascending order
+emp = session.query(Employee).order_by(Employee.age).all()
+print("\nEmployees ordered by age in ascending order:")
+if emp:
+    for e in emp:
+        print(e.id, e.name, e.age, e.department)
+else:
+    print("\nNo employees found!")
+#orderby age in descending order
+emp = session.query(Employee).order_by(Employee.age.desc()).all()
+print("\nEmployees ordered by age in descending order:")
+if emp:
+    for e in emp:
+        print(e.id, e.name, e.age, e.department)
+else:
+    print("\nNo employees found!")
+
+#limit number of records
+emp = session.query(Employee).limit(2).all()
+print("\nFirst 2 employees:")
+if emp:
+    for e in emp:
+        print(e.id, e.name, e.age, e.department)
+else:
+    print("\nNo employees found!")
+    
